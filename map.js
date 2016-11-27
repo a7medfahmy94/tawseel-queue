@@ -5,10 +5,8 @@ function initMap() {
   window.points = [];
   navigator.geolocation.getCurrentPosition(function(position){
     var center = {
-      // lat: position.coords.latitude,
-      // lng: position.coords.longitude
-      lat: 30.081763,
-      lng: 31.1838253
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
     }
     var map = new google.maps.Map(document.getElementById('map'), {
       center: center,
