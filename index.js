@@ -73,10 +73,17 @@ app.post('/move', function(request, response) {
   })
 });
 
+app.post('/end', function (request, response) {
+  console.log('end');
+  var tripRef = tripsRef.child(request.body.tripId);
+  tripRef.update({state: 'ended'});
+})
+
 app.get('/newTrip', function(request, response){
   var key = tripsRef.push().key;
   tripsRef.child(key).update({
-    startAt: new Date()
+    startAt: new Date(),
+    state: 'started'
   })
   response.json({tripId: key});
 });

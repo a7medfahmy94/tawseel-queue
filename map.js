@@ -25,6 +25,7 @@ function addPoint(lat, lng, map) {
   if (!tripId) {
     return;
   }
+  $("#begin-trip").html('End')
   window.points.push({
     lat: lat,
     lng: lng
@@ -66,7 +67,7 @@ function addPoint(lat, lng, map) {
           return sum + leg.distance.value;
         },0)
       }).done(function(response){
-        $("#begin-trip").html(response.cost + " SAR");
+        $("#cost").html(response.cost + " SAR");
       })
     }
   });
@@ -75,9 +76,15 @@ function addPoint(lat, lng, map) {
 
 $(function(){
   $("#begin-trip").on('click', function(){
-    $(this).html('Click on map for initial position');
-    $.get('/newTrip').then(function(response){
-      window.tripId = response.tripId;
-    })
+    if ($(this).html() == 'End') {
+      $(this).html('Trip ended, refresh for a new trip!');
+      $.post('/end',{tripId: window.tripId});
+      return;
+    } else {
+      $(this).html('Click on map for initial position');
+      $.get('/newTrip').then(function(response){
+        window.tripId = response.tripId;
+      })
+    }
   })
 })
