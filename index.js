@@ -6,9 +6,9 @@ var Queue = require('firebase-queue');
 
 // Init express
 var app = express();
-app.set('port', 7000);
+app.set('port', (process.env.PORT || 5000));
 
-app.listen(7000);
+app.listen(app.get('port'));
 
 var config = {
   apiKey: 'AIzaSyDn_NMUsa9sVsYm19ApwK2U8juSC1PYLfM',
